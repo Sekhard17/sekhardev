@@ -1,0 +1,692 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faReact, 
+  faJs,
+  faPython 
+} from '@fortawesome/free-brands-svg-icons';
+import { 
+  faDatabase,
+  faCode,
+  faBrain,
+  faSearch,
+  faGraduationCap,
+  faBook,
+  faChalkboardTeacher,
+  faUsers,
+  faClock,
+  faStar,
+  faArrowRight,
+  faTags
+} from '@fortawesome/free-solid-svg-icons';
+
+
+
+const categories = [
+  {
+    id: 'databases',
+    name: 'Bases de Datos',
+    icon: faDatabase,
+    description: 'Domina el arte de gestionar y manipular datos de manera eficiente',
+    color: 'from-blue-500 to-blue-700'
+  },
+  {
+    id: 'programming-basics',
+    name: 'Fundamentos de Programación',
+    icon: faBrain,
+    description: 'Aprende los conceptos básicos de la programación y el pensamiento lógico',
+    color: 'from-purple-500 to-purple-700'
+  },
+  {
+    id: 'oop',
+    name: 'Programación Orientada a Objetos',
+    icon: faCode,
+    description: 'Descubre los principios de la POO con Java y C++',
+    color: 'from-green-500 to-green-700'
+  },
+  {
+    id: 'python',
+    name: 'Python',
+    icon: faPython,
+    description: 'Desarrolla aplicaciones seguras y robustas con Python',
+    color: 'from-yellow-500 to-yellow-700'
+  },
+  {
+    id: 'javascript',
+    name: 'JavaScript',
+    icon: faJs,
+    description: 'Domina el lenguaje de la web moderna',
+    color: 'from-orange-500 to-orange-700'
+  },
+  {
+    id: 'frameworks',
+    name: 'Frameworks Modernos',
+    icon: faReact,
+    description: 'Construye aplicaciones web modernas con React, Astro y más',
+    color: 'from-cyan-500 to-cyan-700'
+  }
+];
+
+const courses = [
+  {
+    title: 'Introducción a las Bases de Datos',
+    category: 'databases',
+    level: 'Principiante',
+    duration: '20 horas',
+    students: 1234,
+    rating: 4.8,
+    instructor: 'Alex Rocha',
+    description: 'Aprende los fundamentos de las bases de datos relacionales y NoSQL',
+    topics: [
+      'Conceptos básicos de BD',
+      'Modelado de datos',
+      'Normalización',
+      'Consultas básicas'
+    ],
+    image: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d'
+  },
+  {
+    title: 'MySQL Avanzado',
+    category: 'databases',
+    level: 'Intermedio',
+    duration: '25 horas',
+    students: 856,
+    rating: 4.7,
+    instructor: 'Javier Elgueta',
+    description: 'Domina MySQL para aplicaciones profesionales',
+    topics: [
+      'Optimización de consultas',
+      'Índices y rendimiento',
+      'Stored Procedures',
+      'Triggers'
+    ],
+    image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee'
+  },
+  {
+    title: 'Supabase: PostgreSQL en la Nube',
+    category: 'databases',
+    level: 'Intermedio',
+    duration: '15 horas',
+    students: 645,
+    rating: 4.9,
+    instructor: 'Alex Rocha',
+    description: 'Construye aplicaciones modernas con Supabase y PostgreSQL',
+    topics: [
+      'Configuración de Supabase',
+      'Autenticación',
+      'Row Level Security',
+      'Tiempo Real'
+    ],
+    image: 'https://images.unsplash.com/photo-1623282033815-40b05d96c903'
+  },
+  {
+    title: 'Lógica de Programación',
+    category: 'programming-basics',
+    level: 'Principiante',
+    duration: '30 horas',
+    students: 2345,
+    rating: 4.9,
+    instructor: 'Javier Elgueta',
+    description: 'Desarrolla el pensamiento lógico para la programación',
+    topics: [
+      'Algoritmos básicos',
+      'Estructuras de control',
+      'Pseudocódigo',
+      'Diagramas de flujo'
+    ],
+    image: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea'
+  },
+  {
+    title: 'Java POO',
+    category: 'oop',
+    level: 'Intermedio',
+    duration: '40 horas',
+    students: 1567,
+    rating: 4.8,
+    instructor: 'Alex Rocha',
+    description: 'Aprende POO con Java desde cero',
+    topics: [
+      'Clases y Objetos',
+      'Herencia',
+      'Polimorfismo',
+      'Interfaces'
+    ],
+    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97'
+  },
+  {
+    title: 'Python Seguro',
+    category: 'python',
+    level: 'Avanzado',
+    duration: '35 horas',
+    students: 987,
+    rating: 4.9,
+    instructor: 'Javier Elgueta',
+    description: 'Desarrollo seguro con Python',
+    topics: [
+      'Manejo de excepciones',
+      'Testing',
+      'Seguridad',
+      'Mejores prácticas'
+    ],
+    image: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935'
+  },
+  {
+    title: 'JavaScript Moderno',
+    category: 'javascript',
+    level: 'Intermedio',
+    duration: '30 horas',
+    students: 2134,
+    rating: 4.8,
+    instructor: 'Alex Rocha',
+    description: 'Domina las características modernas de JavaScript',
+    topics: [
+      'ES6+',
+      'Async/Await',
+      'Módulos',
+      'DOM Manipulation'
+    ],
+    image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479'
+  },
+  {
+    title: 'React Profesional',
+    category: 'frameworks',
+    level: 'Avanzado',
+    duration: '45 horas',
+    students: 1876,
+    rating: 4.9,
+    instructor: 'Javier Elgueta',
+    description: 'Construye aplicaciones profesionales con React',
+    topics: [
+      'Hooks avanzados',
+      'Context API',
+      'Redux',
+      'Performance'
+    ],
+    image: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2'
+  },
+  {
+    title: 'Astro: El Framework del Futuro',
+    category: 'frameworks',
+    level: 'Intermedio',
+    duration: '25 horas',
+    students: 756,
+    rating: 4.8,
+    instructor: 'Alex Rocha',
+    description: 'Crea sitios web ultrarrápidos con Astro',
+    topics: [
+      'Arquitectura Islands',
+      'Integración con React',
+      'SSG vs SSR',
+      'Optimización'
+    ],
+    image: 'https://images.unsplash.com/photo-1635830625698-3b9bd74671ca'
+  }
+];
+
+const levels = ['Principiante', 'Intermedio', 'Avanzado'];
+const instructors = [...new Set(courses.map(course => course.instructor))];
+---
+
+<Layout title="Cursos de Programación | Sekhard.dev">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 dark:from-primary-800 dark:via-primary-900 dark:to-primary-950">
+    <div class="container mx-auto px-4 py-20">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          Aprende Desarrollo de Software
+        </h1>
+        <p class="text-xl text-primary-100 mb-8">
+          Descubre nuestra colección de cursos diseados para llevarte desde los fundamentos hasta el desarrollo profesional.
+        </p>
+        
+        <!-- Search Bar -->
+        <div class="relative max-w-2xl mx-auto">
+          <FontAwesomeIcon
+            icon={faSearch}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+          />
+          <input
+            type="search"
+            id="courseSearch"
+            placeholder="Buscar cursos..."
+            class="w-full pl-12 pr-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white/30"
+          />
+        </div>
+      </div>
+    </div>
+    
+    <!-- Curved divider -->
+    <div class="relative h-16">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="absolute bottom-0 w-full h-full">
+        <path
+          fill="currentColor"
+          class="text-gray-50 dark:text-gray-900"
+          fill-opacity="1"
+          d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Categories Grid -->
+  <section class="bg-gray-50 dark:bg-gray-900 py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {categories.map(category => (
+          <button
+            class={`group relative overflow-hidden rounded-xl bg-gradient-to-br ${category.color} p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}
+            data-category={category.id}
+          >
+            <div class="relative z-10">
+              <FontAwesomeIcon icon={category.icon} className="w-8 h-8 mb-4" />
+              <h3 class="text-xl font-bold mb-2">{category.name}</h3>
+              <p class="text-sm text-white/80">{category.description}</p>
+            </div>
+            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="bg-gray-50 dark:bg-gray-900 min-h-screen py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar Filters -->
+        <aside class="lg:w-72 space-y-6">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg sticky top-24">
+            <!-- Level Filter -->
+            <div class="mb-8">
+              <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                <FontAwesomeIcon icon={faGraduationCap} className="w-4 h-4 text-primary-600" />
+                Nivel
+              </h3>
+              <div class="space-y-2">
+                {levels.map(level => (
+                  <label class="flex items-center gap-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value={level}
+                      class="form-checkbox h-4 w-4 text-primary-600 rounded border-gray-300"
+                      data-level={level}
+                    />
+                    <span>{level}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <!-- Instructor Filter -->
+            <div class="mb-8">
+              <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                <FontAwesomeIcon icon={faChalkboardTeacher} className="w-4 h-4 text-primary-600" />
+                Instructor
+              </h3>
+              <div class="space-y-2">
+                {instructors.map(instructor => (
+                  <label class="flex items-center gap-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value={instructor}
+                      class="form-checkbox h-4 w-4 text-primary-600 rounded border-gray-300"
+                      data-instructor={instructor}
+                    />
+                    <span>{instructor}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <!-- Active Filters -->
+            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700" id="activeFilters">
+              <h3 class="text-sm font-medium mb-2 flex items-center gap-2">
+                <FontAwesomeIcon icon={faTags} className="w-4 h-4 text-primary-600" />
+                Filtros Activos
+              </h3>
+              <div class="flex flex-wrap gap-2" id="activeFilterTags"></div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Courses Grid -->
+        <div class="flex-1">
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-6" id="coursesGrid">
+            {courses.map(course => (
+              <article 
+                class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden"
+                data-category={course.category}
+                data-level={course.level}
+                data-instructor={course.instructor}
+              >
+                <div class="relative h-48 overflow-hidden">
+                  <img
+                    src={course.image}
+                    alt={course.title}
+                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <div class="absolute bottom-4 left-4 right-4">
+                    <div class="flex items-center gap-2 text-white">
+                      <span class="px-2 py-1 bg-primary-600/90 rounded-full text-sm">
+                        {course.level}
+                      </span>
+                      <span class="flex items-center gap-1 text-sm">
+                        <FontAwesomeIcon icon={faStar} className="w-4 h-4 text-yellow-400" />
+                        {course.rating}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-6">
+                  <h3 class="text-xl font-bold mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                    {course.title}
+                  </h3>
+                  
+                  <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    {course.description}
+                  </p>
+
+                  <div class="space-y-4">
+                    <!-- Course Info -->
+                    <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                      <span class="flex items-center gap-1">
+                        <FontAwesomeIcon icon={faClock} className="w-4 h-4" />
+                        {course.duration}
+                      </span>
+                      <span class="flex items-center gap-1">
+                        <FontAwesomeIcon icon={faUsers} className="w-4 h-4" />
+                        {course.students} estudiantes
+                      </span>
+                    </div>
+
+                    <!-- Topics -->
+                    <div class="space-y-2">
+                      <h4 class="font-medium">Temas principales:</h4>
+                      <ul class="grid grid-cols-2 gap-2">
+                        {course.topics.map(topic => (
+                          <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                            <FontAwesomeIcon icon={faBook} className="w-3 h-3 text-primary-600" />
+                            {topic}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <!-- Instructor -->
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center">
+                          <FontAwesomeIcon icon={faChalkboardTeacher} className="w-5 h-5 text-primary-600" />
+                        </div>
+                        <div>
+                          <p class="font-medium">{course.instructor}</p>
+                          <p class="text-sm text-gray-600 dark:text-gray-400">Instructor</p>
+                        </div>
+                      </div>
+                      
+                      <button class="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300">
+                        Ver Curso
+                        <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Definir interfaces primero
+  interface CourseState {
+    searchTerm: string;
+    activeCategory: string | null;
+    activeLevels: Set<string>;
+    activeInstructors: Set<string>;
+  }
+
+  interface HTMLElementWithDataset extends HTMLElement {
+    dataset: DOMStringMap;
+  }
+
+  interface CourseElement extends HTMLElementWithDataset {
+    classList: DOMTokenList;
+  }
+
+  interface HighlightableElement extends HTMLElement {
+    dataset: {
+      original?: string;
+    };
+    textContent: string | null;
+    innerHTML: string;
+  }
+
+  // Estado global de filtros
+  const state: CourseState = {
+    searchTerm: '',
+    activeCategory: null,
+    activeLevels: new Set(),
+    activeInstructors: new Set(),
+  };
+
+  // Elementos DOM con tipos correctos
+  const searchInput = document.getElementById('courseSearch') as HTMLInputElement;
+  const coursesGrid = document.getElementById('coursesGrid');
+  const categoryButtons = document.querySelectorAll<HTMLElementWithDataset>('[data-category]');
+  const levelCheckboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"][data-level]');
+  const instructorCheckboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"][data-instructor]');
+  const activeFilterTags = document.getElementById('activeFilterTags');
+
+  if (!coursesGrid || !activeFilterTags || !searchInput) {
+    throw new Error('Elementos DOM requeridos no encontrados');
+  }
+
+  const courses = Array.from(coursesGrid.children) as HTMLElementWithDataset[];
+
+  // Función para actualizar los filtros activos
+  function updateActiveFilters() {
+    if (!activeFilterTags) return;
+    activeFilterTags.innerHTML = '';
+    
+    if (state.activeCategory) {
+      const category = Array.from(categoryButtons).find(btn => 
+        btn.dataset.category === state.activeCategory
+      );
+      if (category) {
+        const categoryName = category.querySelector('h3')?.textContent || '';
+        addFilterTag(categoryName, () => {
+          state.activeCategory = null;
+          filterCourses();
+          updateCategoryButtons();
+        });
+      }
+    }
+
+    state.activeLevels.forEach(level => {
+      addFilterTag(level, () => {
+        state.activeLevels.delete(level);
+        const checkbox = document.querySelector<HTMLInputElement>(`input[type="checkbox"][data-level="${level}"]`);
+        if (checkbox) checkbox.checked = false;
+        filterCourses();
+      });
+    });
+
+    state.activeInstructors.forEach(instructor => {
+      addFilterTag(instructor, () => {
+        state.activeInstructors.delete(instructor);
+        const checkbox = document.querySelector<HTMLInputElement>(`input[type="checkbox"][data-instructor="${instructor}"]`);
+        if (checkbox) checkbox.checked = false;
+        filterCourses();
+      });
+    });
+  }
+
+  // Función para agregar una etiqueta de filtro activo
+  function addFilterTag(text: string, onRemove: () => void) {
+    if (!activeFilterTags) return;
+    const tag = document.createElement('span');
+    tag.className = 'inline-flex items-center gap-1 px-2 py-1 bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 text-sm rounded-full';
+    tag.innerHTML = `
+      ${text}
+      <button class="hover:text-primary-800 dark:hover:text-primary-200">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    `;
+    tag.querySelector('button')?.addEventListener('click', onRemove);
+    activeFilterTags.appendChild(tag);
+  }
+
+  // Función para actualizar los botones de categoría
+  function updateCategoryButtons() {
+    categoryButtons.forEach(btn => {
+      const isActive = btn.dataset.category === state.activeCategory;
+      btn.classList.toggle('ring-4', isActive);
+      btn.classList.toggle('ring-white/30', isActive);
+    });
+  }
+
+  // Función principal de filtrado
+  function filterCourses() {
+    const searchTerm = state.searchTerm.toLowerCase();
+    
+    courses.forEach(course => {
+      const title = course.querySelector('h3');
+      const description = course.querySelector('p');
+      const courseCategory = course.dataset.category;
+      const courseLevel = course.dataset.level;
+      const courseInstructor = course.dataset.instructor;
+      
+      if (!title || !description) return;
+
+      const courseTitle = title.textContent?.toLowerCase() || '';
+      const courseDescription = description.textContent?.toLowerCase() || '';
+      
+      const matchesSearch = courseTitle.includes(searchTerm) || 
+                           courseDescription.includes(searchTerm);
+      
+      const matchesCategory = !state.activeCategory || 
+                             courseCategory === state.activeCategory;
+      
+      const matchesLevel = state.activeLevels.size === 0 || 
+                          (courseLevel && state.activeLevels.has(courseLevel));
+      
+      const matchesInstructor = state.activeInstructors.size === 0 || 
+                               (courseInstructor && state.activeInstructors.has(courseInstructor));
+      
+      if (matchesSearch && matchesCategory && matchesLevel && matchesInstructor) {
+        course.classList.remove('hidden');
+        if (searchTerm) {
+          highlightText(course, searchTerm);
+        } else {
+          resetHighlight(course);
+        }
+      } else {
+        course.classList.add('hidden');
+      }
+    });
+
+    updateActiveFilters();
+    showNoResultsMessage();
+  }
+
+  // Función para mostrar mensaje cuando no hay resultados
+  function showNoResultsMessage() {
+    if (!coursesGrid) return;
+    
+    const hasVisibleCourses = courses.some(course => !course.classList.contains('hidden'));
+    let noResultsMessage = document.getElementById('noResultsMessage');
+    
+    if (!hasVisibleCourses) {
+      if (!noResultsMessage) {
+        noResultsMessage = document.createElement('div');
+        noResultsMessage.id = 'noResultsMessage';
+        noResultsMessage.className = 'col-span-full text-center py-12 text-gray-500 dark:text-gray-400';
+        noResultsMessage.innerHTML = `No se encontraron resultados para "${state.searchTerm}"`;
+        coursesGrid.appendChild(noResultsMessage);
+      }
+    } else if (noResultsMessage) {
+      noResultsMessage.remove();
+    }
+  }
+
+  // Funciones de resaltado actualizadas
+  function highlightText(element: CourseElement, searchTerm: string) {
+    const title = element.querySelector('h3') as HighlightableElement;
+    const description = element.querySelector('p') as HighlightableElement;
+    
+    if (!title || !description) return;
+    
+    if (!title.dataset.original) {
+      title.dataset.original = title.textContent || '';
+      description.dataset.original = description.textContent || '';
+    }
+    
+    [title, description].forEach(el => {
+      const text = el.dataset.original || '';
+      const regex = new RegExp(`(${searchTerm})`, 'gi');
+      el.innerHTML = text.replace(regex, '<mark class="bg-yellow-200 dark:bg-yellow-900">$1</mark>');
+    });
+  }
+
+  function resetHighlight(element: CourseElement) {
+    const title = element.querySelector('h3') as HighlightableElement;
+    const description = element.querySelector('p') as HighlightableElement;
+    
+    if (!title || !description || !title.dataset.original) return;
+    
+    title.textContent = title.dataset.original || null;
+    description.textContent = description.dataset.original || null;
+  }
+
+  // Event listeners actualizados
+  levelCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      if (checkbox.value) {
+        if (checkbox.checked) {
+          state.activeLevels.add(checkbox.value);
+        } else {
+          state.activeLevels.delete(checkbox.value);
+        }
+        filterCourses();
+      }
+    });
+  });
+
+  instructorCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      if (checkbox.value) {
+        if (checkbox.checked) {
+          state.activeInstructors.add(checkbox.value);
+        } else {
+          state.activeInstructors.delete(checkbox.value);
+        }
+        filterCourses();
+      }
+    });
+  });
+
+  // Event Listeners con comprobación de tipos
+  searchInput.addEventListener('input', (e) => {
+    const target = e.target as HTMLInputElement;
+    state.searchTerm = target.value;
+    filterCourses();
+  });
+
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.dataset.category || null;
+      state.activeCategory = state.activeCategory === category ? null : category;
+      updateCategoryButtons();
+      filterCourses();
+    });
+  });
+</script>

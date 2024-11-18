@@ -1,0 +1,106 @@
+---
+import '@fontsource-variable/inter';
+import AppWrapper from '../components/AppWrapper';
+import { AuthProvider } from '../components/AuthContext';
+import AuthModalWrapper from '../components/AuthModalWrapper';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Portfolio personal y blog de desarrollo de Ignacio Sekhard" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <AuthProvider client:load>
+      <AppWrapper client:load>
+        <slot />
+        <AuthModalWrapper client:idle />
+        <footer class="bg-gray-50 dark:bg-gray-800">
+          <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <div>
+                <h3 class="text-xl font-bold mb-4">Ignacio Sekhard</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                  Desarrollador Full Stack apasionado por crear soluciones innovadoras y compartir conocimiento.
+                </p>
+              </div>
+              
+              <div>
+                <h3 class="text-xl font-bold mb-4">Newsletter</h3>
+                <form class="flex gap-2">
+                  <input
+                    type="email"
+                    placeholder="tu@email.com"
+                    class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 outline-none"
+                  />
+                  <button
+                    type="submit"
+                    class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    Suscribirse
+                  </button>
+                </form>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-bold mb-4">Enlaces Rápidos</h3>
+                <ul class="space-y-2">
+                  <li>
+                    <a href="/" class="text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
+                      Inicio
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/herramientas" class="text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
+                      Herramientas
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/cursos" class="text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
+                      Cursos
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/recursos" class="text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
+                      Recursos
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </AppWrapper>
+    </AuthProvider>
+
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+    
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+      window.localStorage.setItem('theme', theme);
+    </script>
+  </body>
+</html>

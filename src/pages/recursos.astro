@@ -1,0 +1,814 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faSearch,
+  faCloud,
+  faDatabase,
+  faServer,
+  faCode,
+  faGlobe,
+  faLock,
+  faRocket,
+  faBolt,
+  faChartLine,
+  faEnvelope,
+  faImage,
+  faFileCode,
+  faNetworkWired,
+  faShieldAlt,
+  faTools,
+  faCheck,
+  faTimes,
+  faInfoCircle,
+  faExternalLinkAlt,
+  faFilter,
+  faDollarSign,
+  faArrowRight
+} from '@fortawesome/free-solid-svg-icons';
+
+const categories = [
+  { id: 'hosting', label: 'Hosting & Deployment', icon: faCloud },
+  { id: 'database', label: 'Bases de Datos', icon: faDatabase },
+  { id: 'backend', label: 'Backend as a Service', icon: faServer },
+  { id: 'api', label: 'API & GraphQL', icon: faCode },
+  { id: 'monitoring', label: 'Monitoreo & Analytics', icon: faChartLine },
+  { id: 'media', label: 'Media & Storage', icon: faImage },
+  { id: 'security', label: 'Seguridad & Auth', icon: faLock }
+];
+
+const pricingTags = ['Gratuito', 'Freemium', 'De Pago', 'Open Source'];
+
+const services = [
+  {
+    name: 'Vercel',
+    description: 'Plataforma de despliegue y hosting optimizada para aplicaciones web modernas.',
+    category: 'hosting',
+    url: 'https://vercel.com',
+    icon: faRocket,
+    pricing: 'Freemium',
+    tags: ['Frontend', 'Full-Stack', 'Jamstack'],
+    pros: [
+      'Despliegue automático con Git',
+      'Excelente rendimiento y Edge Network',
+      'Perfecto para Next.js y otros frameworks modernos',
+      'Certificados SSL gratuitos'
+    ],
+    cons: [
+      'Limitaciones en el plan gratuito',
+      'Funciones serverless con tiempo límite',
+      'Costos pueden escalar rápidamente'
+    ],
+    features: [
+      'Previews automáticas',
+      'Integración continua',
+      'Analytics en tiempo real',
+      'Dominios personalizados'
+    ]
+  },
+  {
+    name: 'Fly.io',
+    description: 'Plataforma para ejecutar aplicaciones full-stack cerca de los usuarios.',
+    category: 'hosting',
+    url: 'https://fly.io',
+    icon: faCloud,
+    pricing: 'Freemium',
+    tags: ['Full-Stack', 'Docker', 'Global'],
+    pros: [
+      'Despliegue global automático',
+      'Soporte para Docker',
+      'Excelente para aplicaciones stateful',
+      'Buenos límites gratuitos'
+    ],
+    cons: [
+      'Curva de aprendizaje inicial',
+      'Configuración más compleja que Vercel/Netlify',
+      'Documentación puede ser confusa'
+    ],
+    features: [
+      'Load balancing global',
+      'Persistencia de volúmenes',
+      'IPv6 nativo',
+      'Certificados SSL automáticos'
+    ]
+  },
+  {
+    name: 'Render',
+    description: 'Plataforma de cloud computing unificada para aplicaciones web modernas.',
+    category: 'hosting',
+    url: 'https://render.com',
+    icon: faServer,
+    pricing: 'Freemium',
+    tags: ['Full-Stack', 'Databases', 'Static'],
+    pros: [
+      'Fácil de usar',
+      'Soporte para múltiples tecnologías',
+      'Despliegue automático',
+      'Buenos precios iniciales'
+    ],
+    cons: [
+      'Menos características que competidores',
+      'Red menos extensa que Vercel/Cloudflare',
+      'Tiempo de inicio en cold starts'
+    ],
+    features: [
+      'Bases de datos gestionadas',
+      'Certificados SSL gratuitos',
+      'CDN global',
+      'Soporte Docker'
+    ]
+  },
+  {
+    name: 'Supabase',
+    description: 'Alternativa open source a Firebase con PostgreSQL como base.',
+    category: 'database',
+    url: 'https://supabase.com',
+    icon: faDatabase,
+    pricing: 'Freemium',
+    tags: ['PostgreSQL', 'Auth', 'Realtime'],
+    pros: [
+      'PostgreSQL completo',
+      'Sistema de autenticación incluido',
+      'API automática',
+      'Excelente documentación'
+    ],
+    cons: [
+      'Menos maduro que Firebase',
+      'Limitaciones en el plan gratuito',
+      'Complejidad en queries complejas'
+    ],
+    features: [
+      'Auth con múltiples providers',
+      'Storage integrado',
+      'Edge Functions',
+      'Row Level Security'
+    ]
+  },
+  {
+    name: 'GraphQL Galaxy',
+    description: 'Plataforma especializada en APIs GraphQL con herramientas avanzadas.',
+    category: 'api',
+    url: 'https://graphql-galaxy.com',
+    icon: faCode,
+    pricing: 'De Pago',
+    tags: ['GraphQL', 'API', 'Developer Tools'],
+    pros: [
+      'Herramientas especializadas para GraphQL',
+      'Excelente rendimiento',
+      'Monitoreo avanzado',
+      'Soporte para federación'
+    ],
+    cons: [
+      'Precio elevado',
+      'Curva de aprendizaje pronunciada',
+      'Requiere conocimiento de GraphQL'
+    ],
+    features: [
+      'Schema stitching',
+      'Caching automático',
+      'Análisis de performance',
+      'Seguridad avanzada'
+    ]
+  },
+  {
+    name: 'GraphBase',
+    description: 'Plataforma serverless para GraphQL con enfoque en rendimiento.',
+    category: 'api',
+    url: 'https://graphbase.com',
+    icon: faDatabase,
+    pricing: 'Freemium',
+    tags: ['GraphQL', 'Serverless', 'Edge'],
+    pros: [
+      'Despliegue en el edge',
+      'Excelente rendimiento',
+      'Fácil integración',
+      'Buena documentación'
+    ],
+    cons: [
+      'Comunidad pequeña',
+      'Menos características que alternativas',
+      'Limitaciones en plan gratuito'
+    ],
+    features: [
+      'Cache distribuido',
+      'Integración con CI/CD',
+      'Métricas en tiempo real',
+      'TypeScript support'
+    ]
+  },
+  {
+    name: 'Cloudflare Pages',
+    description: 'Plataforma JAMstack con la potencia de la red global de Cloudflare.',
+    category: 'hosting',
+    url: 'https://pages.cloudflare.com',
+    icon: faGlobe,
+    pricing: 'Freemium',
+    tags: ['JAMstack', 'Edge', 'CDN'],
+    pros: [
+      'Red global masiva',
+      'Integración con Workers',
+      'Excelente rendimiento',
+      'Generosos límites gratuitos'
+    ],
+    cons: [
+      'Menos integraciones que Vercel',
+      'UI puede ser confusa',
+      'Documentación dispersa'
+    ],
+    features: [
+      'Web Analytics gratuito',
+      'Integración con Git',
+      'Workers y KV',
+      'Dominios personalizados'
+    ]
+  },
+  {
+    name: 'PlanetScale',
+    description: 'Base de datos MySQL serverless diseñada para escalar.',
+    category: 'database',
+    url: 'https://planetscale.com',
+    icon: faDatabase,
+    pricing: 'Freemium',
+    tags: ['MySQL', 'Serverless', 'Scale'],
+    pros: [
+      'Escalabilidad horizontal',
+      'Branching de base de datos',
+      'Sin tiempo de inactividad',
+      'CLI potente'
+    ],
+    cons: [
+      'Precio puede ser alto',
+      'Características específicas de MySQL no disponibles',
+      'Requiere conocimiento específico'
+    ],
+    features: [
+      'Database branching',
+      'Schema migrations',
+      'Backup automático',
+      'Dashboard avanzado'
+    ]
+  },
+  {
+    name: 'Upstash',
+    description: 'Redis y Kafka serverless con modelo de precios por solicitud.',
+    category: 'database',
+    url: 'https://upstash.com',
+    icon: faDatabase,
+    pricing: 'De Pago',
+    tags: ['Redis', 'Kafka', 'Serverless'],
+    pros: [
+      'Verdaderamente serverless',
+      'Precio por uso',
+      'Baja latencia',
+      'Fácil de usar'
+    ],
+    cons: [
+      'Menos características que Redis Enterprise',
+      'Límites en tamaño de datos',
+      'Opciones de configuración limitadas'
+    ],
+    features: [
+      'REST API',
+      'Edge caching',
+      'Múltiples regiones',
+      'Métricas en tiempo real'
+    ]
+  },
+  {
+    name: 'Neon',
+    description: 'PostgreSQL serverless con separación de almacenamiento y computación.',
+    category: 'database',
+    url: 'https://neon.tech',
+    icon: faDatabase,
+    pricing: 'Freemium',
+    tags: ['PostgreSQL', 'Serverless', 'Scale'],
+    pros: [
+      'Arquitectura moderna',
+      'Autoescalado',
+      'Branching de base de datos',
+      'Bajo costo'
+    ],
+    cons: [
+      'Producto relativamente nuevo',
+      'Menos integraciones',
+      'Algunas características en desarrollo'
+    ],
+    features: [
+      'Autoscaling',
+      'Backups punto en el tiempo',
+      'Dashboard web',
+      'API REST'
+    ]
+  }
+];
+
+// Extraer todos los tags únicos
+const allTags = [...new Set(services.flatMap(service => service.tags))].sort();
+---
+
+<Layout title="Recursos SAAS y Cloud | Sekhard.dev">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 dark:from-primary-800 dark:via-primary-900 dark:to-primary-950">
+    <div class="container mx-auto px-4 py-20">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          Recursos SAAS y Servicios Cloud
+        </h1>
+        <p class="text-xl text-primary-100 mb-8">
+          Descubre las mejores herramientas y servicios en la nube para tus proyectos de desarrollo.
+        </p>
+        
+        <!-- Search Bar -->
+        <div class="relative max-w-2xl mx-auto">
+          <FontAwesomeIcon
+            icon={faSearch}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+          />
+          <input
+            type="search"
+            id="serviceSearch"
+            placeholder="Buscar servicios..."
+            class="w-full pl-12 pr-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white/30"
+          />
+        </div>
+      </div>
+    </div>
+    
+    <!-- Curved divider -->
+    <div class="relative h-16">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="absolute bottom-0 w-full h-full">
+        <path
+          fill="currentColor"
+          class="text-gray-50 dark:text-gray-900"
+          fill-opacity="1"
+          d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar Filters -->
+        <aside class="lg:w-72 space-y-6">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg sticky top-24">
+            <!-- Categories -->
+            <div class="mb-8">
+              <h3 class="text-lg font-bold mb-4">Categorías</h3>
+              <div class="space-y-2">
+                {categories.map(category => (
+                  <button
+                    class="w-full flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                    data-category={category.id}
+                  >
+                    <FontAwesomeIcon icon={category.icon} className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                    <span>{category.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <!-- Pricing Filter -->
+            <div class="mb-8">
+              <h3 class="text-lg font-bold mb-4">Precio</h3>
+              <div class="space-y-2">
+                {pricingTags.map(tag => (
+                  <label class="flex items-center gap-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value={tag}
+                      class="form-checkbox h-4 w-4 text-primary-600 rounded border-gray-300"
+                      data-pricing={tag}
+                    />
+                    <span class="flex items-center gap-2">
+                      <FontAwesomeIcon icon={faDollarSign} className="w-3 h-3 text-gray-400" />
+                      {tag}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <!-- Tags Filter -->
+            <div>
+              <h3 class="text-lg font-bold mb-4">Filtrar por Tags</h3>
+              <div class="space-y-2">
+                <div class="relative">
+                  <FontAwesomeIcon
+                    icon={faFilter}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+                  />
+                  <input
+                    type="search"
+                    id="tagSearch"
+                    placeholder="Buscar tags..."
+                    class="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm"
+                  />
+                </div>
+                <div class="max-h-48 overflow-y-auto space-y-1 mt-2" id="tagsList">
+                  {allTags.map(tag => (
+                    <label class="flex items-center gap-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer">
+                      <input
+                        type="checkbox"
+                        value={tag}
+                        class="form-checkbox h-4 w-4 text-primary-600 rounded border-gray-300"
+                        data-tag={tag}
+                      />
+                      <span class="text-sm">{tag}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <!-- Active Filters -->
+            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700" id="activeFilters">
+              <h3 class="text-sm font-medium mb-2">Filtros Activos</h3>
+              <div class="flex flex-wrap gap-2" id="activeFilterTags"></div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Services Grid -->
+        <div class="flex-1">
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-6" id="servicesGrid">
+            {services.map(service => (
+              <article 
+                class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                data-category={service.category}
+                data-pricing={service.pricing}
+                data-tags={service.tags.join(',')}
+              >
+                <div class="p-6">
+                  <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-4">
+                      <div class="w-12 h-12 bg-primary-50 dark:bg-primary-900/50 rounded-xl flex items-center justify-center">
+                        <FontAwesomeIcon icon={service.icon} className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-bold group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                          {service.name}
+                        </h3>
+                        <div class="flex items-center gap-2 mt-1">
+                          <span class="px-2 py-1 bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 text-xs rounded-full">
+                            {service.pricing}
+                          </span>
+                          {service.tags.map(tag => (
+                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded-full">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <a 
+                      href={service.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    >
+                      <FontAwesomeIcon icon={faExternalLinkAlt} className="w-5 h-5" />
+                    </a>
+                  </div>
+
+                  <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    {service.description}
+                  </p>
+
+                  <!-- Pros and Cons -->
+                  <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <h4 class="font-medium mb-2 flex items-center gap-2">
+                        <FontAwesomeIcon icon={faCheck} className="w-4 h-4 text-green-500" />
+                        Pros
+                      </h4>
+                      <ul class="space-y-1">
+                        {service.pros.map(pro => (
+                          <li class="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
+                            <span class="text-green-500 mt-1">•</span>
+                            {pro}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 class="font-medium mb-2 flex items-center gap-2">
+                        <FontAwesomeIcon icon={faTimes} className="w-4 h-4 text-red-500" />
+                        Contras
+                      </h4>
+                      <ul class="space-y-1">
+                        {service.cons.map(con => (
+                          <li class="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
+                            <span class="text-red-500 mt-1">•</span>
+                            {con}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Features -->
+                  <div>
+                    <h4 class="font-medium mb-2 flex items-center gap-2">
+                      <FontAwesomeIcon icon={faInfoCircle} className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                      Características
+                    </h4>
+                    <ul class="grid grid-cols-2 gap-2">
+                      {service.features.map(feature => (
+                        <li class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                          <FontAwesomeIcon icon={faArrowRight} className="w-3 h-3 text-primary-600 dark:text-primary-400" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Interfaces
+  interface ServiceState {
+    searchTerm: string;
+    activeCategory: string | null;
+    activeTags: Set<string>;
+    activeTypes: Set<string>;
+    activeLevels: Set<string>;
+  }
+
+  interface ServiceElement extends HTMLElement {
+    dataset: {
+      category: string;
+      tags: string;
+      type: string;
+      level: string;
+    };
+    classList: DOMTokenList;
+  }
+
+  interface FilterButton extends HTMLElement {
+    dataset: {
+      category: string;
+    };
+  }
+
+  interface FilterCheckbox extends HTMLInputElement {
+    dataset: {
+      tag?: string;
+      type?: string;
+      level?: string;
+    };
+    value: string;
+    checked: boolean;
+  }
+
+  interface TagLabel extends HTMLElement {
+    style: CSSStyleDeclaration;
+  }
+
+  // Estado global
+  const state: ServiceState = {
+    searchTerm: '',
+    activeCategory: null,
+    activeTags: new Set(),
+    activeTypes: new Set(),
+    activeLevels: new Set()
+  };
+
+  // Elementos DOM con tipos seguros
+  const searchInput = document.getElementById('serviceSearch') as HTMLInputElement;
+  const tagSearchInput = document.getElementById('tagSearch') as HTMLInputElement;
+  const servicesGrid = document.getElementById('servicesGrid');
+  const categoryButtons = document.querySelectorAll<FilterButton>('[data-category]');
+  const tagCheckboxes = document.querySelectorAll<FilterCheckbox>('input[type="checkbox"][data-tag]');
+  const typeCheckboxes = document.querySelectorAll<FilterCheckbox>('input[type="checkbox"][data-type]');
+  const levelCheckboxes = document.querySelectorAll<FilterCheckbox>('input[type="checkbox"][data-level]');
+  const activeFilterTags = document.getElementById('activeFilterTags');
+  const services = servicesGrid ? Array.from(servicesGrid.children) as ServiceElement[] : [];
+
+  // Función para agregar etiqueta de filtro
+  function addFilterTag(text: string, onRemove: () => void) {
+    if (!activeFilterTags) return;
+    
+    const tag = document.createElement('span');
+    tag.className = 'inline-flex items-center gap-1 px-2 py-1 bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 text-sm rounded-full';
+    tag.innerHTML = `
+      ${text}
+      <button class="hover:text-primary-800 dark:hover:text-primary-200">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    `;
+    
+    const button = tag.querySelector('button');
+    if (button) button.addEventListener('click', onRemove);
+    activeFilterTags.appendChild(tag);
+  }
+
+  // Event listeners con tipos seguros
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      state.searchTerm = target.value;
+      filterServices();
+    });
+  }
+
+  if (tagSearchInput) {
+    tagSearchInput.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      const searchTerm = target.value.toLowerCase();
+      const tagsList = document.getElementById('tagsList');
+      
+      if (tagsList) {
+        Array.from(tagsList.children).forEach(label => {
+          const tagSpan = (label as TagLabel).querySelector('span');
+          if (tagSpan) {
+            const tagText = tagSpan.textContent?.toLowerCase() || '';
+            (label as TagLabel).style.display = tagText.includes(searchTerm) ? '' : 'none';
+          }
+        });
+      }
+    });
+  }
+
+  // Función principal de filtrado
+  function filterServices() {
+    const searchTerm = state.searchTerm.toLowerCase();
+    
+    services.forEach(service => {
+      const titleEl = service.querySelector('h3');
+      const descriptionEl = service.querySelector('p');
+      
+      if (!titleEl || !descriptionEl) return;
+      
+      const serviceName = titleEl.textContent?.toLowerCase() || '';
+      const serviceDescription = descriptionEl.textContent?.toLowerCase() || '';
+      const serviceCategory = service.dataset.category;
+      const serviceTags = service.dataset.tags.split(',');
+      const serviceType = service.dataset.type;
+      const serviceLevel = service.dataset.level;
+      
+      const matchesSearch = serviceName.includes(searchTerm) || 
+                           serviceDescription.includes(searchTerm) ||
+                           serviceTags.some(tag => tag.toLowerCase().includes(searchTerm));
+      
+      const matchesCategory = !state.activeCategory || 
+                             state.activeCategory === serviceCategory;
+      
+      const matchesTags = state.activeTags.size === 0 || 
+                         serviceTags.some(tag => state.activeTags.has(tag));
+      
+      const matchesType = state.activeTypes.size === 0 || 
+                         (serviceType && state.activeTypes.has(serviceType));
+      
+      const matchesLevel = state.activeLevels.size === 0 || 
+                          (serviceLevel && state.activeLevels.has(serviceLevel));
+      
+      const isVisible = matchesSearch && 
+                       matchesCategory && 
+                       matchesTags && 
+                       matchesType && 
+                       matchesLevel;
+      
+      service.classList.toggle('hidden', !isVisible);
+      
+      if (searchTerm && isVisible) {
+        highlightText(service, searchTerm);
+      } else {
+        resetHighlight(service);
+      }
+    });
+    
+    showNoResultsMessage();
+    updateActiveFilters();
+  }
+
+  // Función para mostrar mensaje cuando no hay resultados
+  function showNoResultsMessage() {
+    const hasVisibleServices = services.some(service => !service.classList.contains('hidden'));
+    let noResultsMessage = document.getElementById('noResultsMessage');
+    
+    if (!hasVisibleServices) {
+      if (!noResultsMessage) {
+        noResultsMessage = document.createElement('div');
+        noResultsMessage.id = 'noResultsMessage';
+        noResultsMessage.className = 'col-span-full text-center py-12 text-gray-500 dark:text-gray-400';
+        noResultsMessage.innerHTML = `No se encontraron resultados para "${state.searchTerm}"`;
+        if (servicesGrid) {
+          servicesGrid.appendChild(noResultsMessage);
+        }
+      }
+    } else if (noResultsMessage) {
+      noResultsMessage.remove();
+    }
+  }
+
+  // Función para resaltar texto coincidente
+  function highlightText(element: ServiceElement, searchTerm: string) {
+    const title = element.querySelector('h3');
+    const description = element.querySelector('p');
+    
+    if (!title || !description) return;
+    
+    if (!title.dataset.original) {
+      title.dataset.original = title.textContent || '';
+      description.dataset.original = description.textContent || '';
+    }
+    
+    [title, description].forEach(el => {
+      const text = el.dataset.original || '';
+      const regex = new RegExp(`(${searchTerm})`, 'gi');
+      el.innerHTML = text.replace(regex, '<mark class="bg-yellow-200 dark:bg-yellow-900">$1</mark>');
+    });
+  }
+
+  // Función para resetear el resaltado
+  function resetHighlight(element: ServiceElement) {
+    const title = element.querySelector('h3');
+    const description = element.querySelector('p');
+    
+    if (!title || !description || !title.dataset.original) return;
+    
+    title.textContent = title.dataset.original || null;
+    description.textContent = description.dataset.original || null;
+  }
+
+  // Función para actualizar los filtros activos
+  function updateActiveFilters() {
+    if (!activeFilterTags) return;
+    activeFilterTags.innerHTML = '';
+    
+    if (state.activeCategory) {
+      const category = Array.from(categoryButtons).find(btn => btn.dataset.category === state.activeCategory);
+      if (category) {
+        const categorySpan = category.querySelector('span');
+        if (categorySpan) {
+          addFilterTag(categorySpan.textContent || '', () => {
+            state.activeCategory = null;
+            filterServices();
+            updateCategoryButtons();
+          });
+        }
+      }
+    }
+
+    state.activeTags.forEach(tag => {
+      addFilterTag(tag, () => {
+        state.activeTags.delete(tag);
+        const checkbox = document.querySelector<FilterCheckbox>(`[data-tag="${tag}"]`);
+        if (checkbox) checkbox.checked = false;
+        filterServices();
+      });
+    });
+
+    state.activeTypes.forEach(type => {
+      addFilterTag(type, () => {
+        state.activeTypes.delete(type);
+        const checkbox = document.querySelector<FilterCheckbox>(`[data-type="${type}"]`);
+        if (checkbox) checkbox.checked = false;
+        filterServices();
+      });
+    });
+
+    state.activeLevels.forEach(level => {
+      addFilterTag(level, () => {
+        state.activeLevels.delete(level);
+        const checkbox = document.querySelector<FilterCheckbox>(`[data-level="${level}"]`);
+        if (checkbox) checkbox.checked = false;
+        filterServices();
+      });
+    });
+  }
+
+  // Función para actualizar el estado visual de los botones de categoría
+  function updateCategoryButtons() {
+    categoryButtons.forEach(button => {
+      const isActive = button.dataset.category === state.activeCategory;
+      button.classList.toggle('bg-primary-50 dark:bg-primary-900/50', isActive);
+      button.classList.toggle('text-primary-600 dark:text-primary-400', isActive);
+    });
+  }
+
+  // Event Listeners para los botones de categoría
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.dataset.category;
+      state.activeCategory = state.activeCategory === category ? null : category;
+      updateCategoryButtons();
+      filterServices();
+    });
+  });
+
+  // ... resto del código con las mismas correcciones de tipo ...
+</script>
